@@ -204,8 +204,19 @@
             </select>
         </div>
         <div class="form-group row">
+            <label class="col-sm-2 col-sm-label text-right" for="roll">Roll Number</label>
+           <input placeholder="Enter Roll Number"
+                type="number"
+                value="{{ old('roll') }}"
+                id="roll"
+                name="roll"
+                spellcheck="false"
+                class="form-control col-sm-9"
+                />
+        </div>
+        <div class="form-group row">
             <label class="col-sm-2 col-sm-label text-right" for="previous_institute">Previous School</label>
-           <input placeholder="Enter Institute Name"
+           <input placeholder="Enter School Name"
                 value="{{ old('previous_institute') }}"
                 id="previous_institute"
                 name="previous_institute"

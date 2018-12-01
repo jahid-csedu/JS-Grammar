@@ -19,6 +19,7 @@
                           <th scope="col">Student's Name</th>
                           <th scope="col">Class</th>
                           <th scope="col">Section</th>
+                          <th scope="col">Roll Number</th>
                           <th scope="col">Father' Phone</th>
                           <th scope="col">Mother's Phone</th>
                           <th scope="col">Action</th>
@@ -31,6 +32,7 @@
                               <td>{{ $student->name_english }}</td>
                               <td>{{ $student->class }}</td>
                               <td>{{ $student->section }}</td>
+                              <td>{{ $student->roll }}</td>
                               <td>{{ $student->father_phone }}</td>
                               <td>{{ $student->mother_phone }}</td>
                               <td><a class="btn btn-info btn-sm" href="/students/{{ $student->id }}">Show Details</a></td>

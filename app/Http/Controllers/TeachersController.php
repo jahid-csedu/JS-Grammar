@@ -65,13 +65,13 @@ class TeachersController extends Controller
         if($lastTeacher) {
             $idNumber = (int)substr($lastTeacher->id,6)+1;
             if($idNumber<10) {
-                $id = '11'.Date('Y').'0'.$idNumber;
+                $id = '2'.Date('y').'0'.$idNumber;
             }else {
-                $id = '11'.Date('Y').$idNumber;
+                $id = '2'.Date('y').$idNumber;
             }
         }else {
             $idNumber=1;
-            $id = '11'.Date('Y').'0'.$idNumber;
+            $id = '2'.Date('y').'0'.$idNumber;
         }
 
         $teacher->id = $id;

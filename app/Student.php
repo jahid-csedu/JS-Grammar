@@ -11,7 +11,7 @@ class Student extends Model
     protected $primaryKey = 'id';
     public $incrementing = false;
     protected $fillable = [
-        'id',
+      'id',
     	'name_bangla',
     	'name_english',
     	'father_name_bangla',
@@ -20,16 +20,17 @@ class Student extends Model
     	'father_phone',
     	'mother_name_bangla',
     	'mother_name_english',
-        'mother_profession',
+      'mother_profession',
     	'mother_phone',
     	'present_address',
     	'permanent_address',
     	'academic_year',
-        'class',
-        'section',
-        'previous_institute',
-        'dob',
-        'blood_group',
+      'class',
+      'section',
+      'roll',
+      'previous_institute',
+      'dob',
+      'blood_group',
     	'photo'
     ];
 

@@ -60,6 +60,7 @@ class StudentsController extends Controller
             'academic_year' => 'integer|regex:/(20)[0-9]{2}/',
             'class' => 'required|string|max:255',
             'section' => 'required|string|max:255',
+            'roll' => 'required|integer',
             'previous_institute' => 'nullable|string|max:255',
             'dob' => 'nullable|date',
             'blood_group' => ['nullable', 'regex:/(A|B|AB|O)[+-]/']
@@ -81,6 +82,7 @@ class StudentsController extends Controller
         $student->academic_year = $request->academic_year;
         $student->class = $request->class;
         $student->section = $request->section;
+        $student->roll = $request->roll;
         $student->previous_institute = $request->previous_institute;
         $student->dob = $request->dob;
         $student->blood_group = $request->blood_group;
@@ -185,6 +187,7 @@ class StudentsController extends Controller
             'academic_year' => 'integer|regex:/(20)[0-9]{2}/',
             'class' => 'required|string|max:255',
             'section' => 'required|string|max:255',
+            'roll' => 'required|integer',
             'previous_institute' => 'nullable|string|max:255',
             'dob' => 'nullable|date',
             'blood_group' => ['nullable', 'regex:/(A|B|AB|O)[+-]/']
@@ -206,6 +209,7 @@ class StudentsController extends Controller
         $student->academic_year = $request->academic_year;
         $student->class = $request->class;
         $student->section = $request->section;
+        $student->roll = $request->roll;
         $student->previous_institute = $request->previous_institute;
         $student->dob = $request->dob;
         $student->blood_group = $request->blood_group;

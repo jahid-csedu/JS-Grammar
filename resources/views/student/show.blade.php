@@ -86,6 +86,10 @@
                               <td>{{ $student->section }}</td>
                             </tr>
                             <tr>
+                              <td>Roll Number</td>
+                              <td>{{ $student->roll }}</td>
+                            </tr>
+                            <tr>
                               <td>Previous Institute</td>
                               <td>{{ $student->institute }}</td>
                             </tr>

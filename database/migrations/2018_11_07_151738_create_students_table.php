@@ -30,6 +30,7 @@ class CreateStudentsTable extends Migration
             $table->integer('academic_year')->unsigned();
             $table->string('class');
             $table->string('section');
+            $table->integer('roll')->unsigned();
             $table->string('previous_institute')->nullable();
             $table->date('dob')->nullable();
             $table->string('blood_group',3)->nullable();
