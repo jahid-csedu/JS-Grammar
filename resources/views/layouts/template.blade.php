@@ -54,12 +54,6 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/fees">
-                  <i class="fas fa-dollar-sign"></i>
-                  <b class="px-1">Fees</b>
-                </a>
-              </li>
-              <li class="nav-item">
                 <a class="nav-link" href="/teachers">
                   <i class="fas fa-user-tie"></i>
                   <b class="px-1">Teachers</b>
@@ -105,6 +99,12 @@
                 <a class="nav-link" href="/sections">
                   <i class="fas fa-book"></i>
                   <b class="px-1">Sections</b>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/fees">
+                  <i class="fas fa-dollar-sign"></i>
+                  <b class="px-1">Fees</b>
                 </a>
               </li>
             </ul>
