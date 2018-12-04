@@ -63,7 +63,10 @@ class StudentsController extends Controller
             'roll' => 'required|integer',
             'previous_institute' => 'nullable|string|max:255',
             'dob' => 'nullable|date',
-            'blood_group' => ['nullable', 'regex:/(A|B|AB|O)[+-]/']
+            'blood_group' => ['nullable', 'regex:/(A|B|AB|O)[+-]/'],
+            'admission_fee' => 'required|integer',
+            'monthly_fee' => 'required|integer',
+            'exam_fee' => 'required|integer'
         ]);
 
         $student = new Student();
@@ -86,6 +89,9 @@ class StudentsController extends Controller
         $student->previous_institute = $request->previous_institute;
         $student->dob = $request->dob;
         $student->blood_group = $request->blood_group;
+        $student->admission_fee = $request->admission_fee;
+        $student->monthly_fee = $request->monthly_fee;
+        $student->exam_fee = $request->exam_fee;
 
         //generating the Student ID[10{academic year}{class}{serial}]
         $classObject = Classes::where('name_english',$request->class)->first();
@@ -190,7 +196,10 @@ class StudentsController extends Controller
             'roll' => 'required|integer',
             'previous_institute' => 'nullable|string|max:255',
             'dob' => 'nullable|date',
-            'blood_group' => ['nullable', 'regex:/(A|B|AB|O)[+-]/']
+            'blood_group' => ['nullable', 'regex:/(A|B|AB|O)[+-]/'],
+            'admission_fee' => 'required|integer',
+            'monthly_fee' => 'required|integer',
+            'exam_fee' => 'required|integer'
         ]);
 
         $student = Student::find($student->id);
@@ -213,6 +222,9 @@ class StudentsController extends Controller
         $student->previous_institute = $request->previous_institute;
         $student->dob = $request->dob;
         $student->blood_group = $request->blood_group;
+        $student->admission_fee = $request->admission_fee;
+        $student->monthly_fee = $request->monthly_fee;
+        $student->exam_fee = $request->exam_fee;
 
         //file Upload
         if($request->hasFile('photo')) {

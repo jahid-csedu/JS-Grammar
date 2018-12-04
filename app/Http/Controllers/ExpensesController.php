@@ -4,6 +4,7 @@ namespace JSGrammar\Http\Controllers;
 
 use JSGrammar\Expense;
 use JSGrammar\Account;
+use JSGrammar\Teacher;
 use Illuminate\Http\Request;
 
 class ExpensesController extends Controller
@@ -41,18 +42,38 @@ class ExpensesController extends Controller
     {
         //
         $request->validate([
+            'type' => 'required|string|max:255',
             'description' => 'required|string|max:255',
             'amount' => 'required|integer',
             'date' => 'required|date',
         ]);
 
         $expense = new Expense();
+        if($request->type === 'Salary') {
+            $expense->teacher_id = $request->teacher_id;
+            $expense->month = $request->month;
+            $expense->year = $request->year;
+        }
+        if($request->type === 'House Rent' || $request->type === 'Bill') {
+            $expense->month = $request->month;
+            $expense->year = $request->year;
+        }
         $expense->description = $request->description;
         $expense->amount = $request->amount;
         $expense->date = $request->date;
         if($expense->save()) {
             $account = new Account();
-            $account->description = $request->description;
+            if($request->type === 'Salary') {
+                $teacherId = $request->teacher_id;
+                $teacherName = Teacher::where('id', $teacherId)->first();
+                $account->description = "Salary paid to  ".$teacherName."(ID: ".$teacherId."(".$request->month."-".$request->year.")";
+            }else if($request->type === 'House Rent') {
+                $account->description = "House Rent paid of Month: ".$request->month."-".$request->year;
+            }else if($request->type === 'Bill') {
+                $account->description = "Bill paid of Month: ".$request->month."-".$request->year;
+            }else{
+                $account->description = $request->description;
+            }
             $account->debit = $request->amount;
             $account->credit = 0;
             $account->date = $request->date;

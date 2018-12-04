@@ -11,6 +11,7 @@
         <div class="form-group row">
             <label class="col-sm-2 col-sm-label text-right" for="name_english">Class Name(English)<span class="required text-danger">*</span></label>
            <input placeholder="Enter Name"
+                value="{{ old('name_english') }}" 
                 id="name_english"
                 required
                 name="name_english"
@@ -21,6 +22,7 @@
         <div class="form-group row">
             <label class="col-sm-2 col-sm-label text-right" for="name_bangla">শ্রেণির নাম<span class="required text-danger">*</span></label>
            <input placeholder="শ্রেণির নাম"
+                value="{{ old('name_bangla') }}" 
                 id="name_bangla"
                 required
                 name="name_bangla"
@@ -31,6 +33,7 @@
         <div class="form-group row">
             <label class="col-sm-2 col-sm-label text-right" for="class">Class(Number)<span class="required text-danger">*</span></label>
            <input placeholder="Enter Class"
+                value="{{ old('class') }}" 
                 type="number"
                 id="class"
                 required

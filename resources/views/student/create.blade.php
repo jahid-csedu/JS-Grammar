@@ -224,6 +224,38 @@
                 class="form-control col-sm-9"
                 />
         </div>
+        <center><h2 class="text-primary">Fees Information</h2></center>
+        <hr>
+        <div class="form-group row">
+            <label class="col-sm-2 col-sm-label text-right" for="admission_fee">Admission Fee</label>
+           <input type="number"
+                value="{{ old('admission_fee') }}"
+                id="admission_fee"
+                name="admission_fee"
+                spellcheck="false"
+                class="form-control col-sm-9"
+                />
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-sm-label text-right" for="monthly_fee">Monthly Fee</label>
+           <input type="number"
+                value="{{ old('monthly_fee') }}"
+                id="monthly_fee"
+                name="monthly_fee"
+                spellcheck="false"
+                class="form-control col-sm-9"
+                />
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-sm-label text-right" for="exam_fee">Examination Fee</label>
+           <input type="number"
+                value="{{ old('exam_fee') }}"
+                id="exam_fee"
+                name="exam_fee"
+                spellcheck="false"
+                class="form-control col-sm-9"
+                />
+        </div>
         <div class="form-group text-center">
             <input type="reset" class="btn btn-danger mx-4" value="Cancel"/>
             <input type="submit" class="btn btn-primary mx-4" value="Submit"/>
@@ -248,6 +280,16 @@
                   document.getElementById('section').innerHTML=data;
                }
             });
+            $.ajax({
+               type:'GET',
+               url:'/getFees',
+               data:{class:$('#class').val()},
+               success:function(data){
+                    $('#admission_fee').val(data.admission_fee);
+                    $('#monthly_fee').val(data.monthly_fee);
+                    $('#exam_fee').val(data.exam_fee);
+               }
+            });
             $('#class').change(function() {
                 $.ajax({
                    type:'GET',
@@ -255,6 +297,16 @@
                    data:{class:this.value},
                    success:function(data){
                        document.getElementById('section').innerHTML=data;
+                   }
+                });
+                $.ajax({
+                   type:'GET',
+                   url:'/getFees',
+                   data:{class:this.value},
+                   success:function(data){
+                        $('#admission_fee').val(data.admission_fee);
+                        $('#monthly_fee').val(data.monthly_fee);
+                        $('#exam_fee').val(data.exam_fee);
                    }
                 });
             });

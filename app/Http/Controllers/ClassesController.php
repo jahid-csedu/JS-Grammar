@@ -55,6 +55,12 @@ class ClassesController extends Controller
                 'name_bangla' => 'required|string|max:255',
                 'class' => 'required|integer'
             ]);
+            $hasClass = Classes::where('class', $request->class)->first();
+            if($hasClass) {
+                return back()
+                ->withInput()
+                ->with('errors','The class you entered already exists');
+            }
             $class = new Classes();
             $class->name_english = $request->name_english;
             $class->name_bangla = $request->name_bangla;

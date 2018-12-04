@@ -34,6 +34,9 @@ class CreateStudentsTable extends Migration
             $table->string('previous_institute')->nullable();
             $table->date('dob')->nullable();
             $table->string('blood_group',3)->nullable();
+            $table->integer('admission_fee');
+            $table->integer('monthly_fee');
+            $table->integer('exam_fee');
             $table->binary('photo')->nullable();
             $table->timestamps();
         });

@@ -8,6 +8,10 @@ class Expense extends Model
 {
     //
     protected $fillable = [
+    	'type',
+    	'teacher_id',
+    	'month',
+    	'year',
     	'description',
     	'amount',
     	'date'

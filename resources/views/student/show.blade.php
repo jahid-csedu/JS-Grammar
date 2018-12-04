@@ -93,6 +93,18 @@
                               <td>Previous Institute</td>
                               <td>{{ $student->institute }}</td>
                             </tr>
+                            <tr>
+                              <td>Admission Fee</td>
+                              <td>{{ $student->admission_fee }}</td>
+                            </tr>
+                            <tr>
+                              <td>Monthly Fee</td>
+                              <td>{{ $student->monthly_fee }}</td>
+                            </tr>
+                            <tr>
+                              <td>Examination Fee</td>
+                              <td>{{ $student->exam_fee }}</td>
+                            </tr>
                         </tbody>
                       </table>
                     </div>

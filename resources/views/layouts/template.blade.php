@@ -102,6 +102,12 @@
                 </a>
               </li>
               <li class="nav-item">
+                <a class="nav-link" href="/subjects">
+                  <i class="fas fa-pen"></i>
+                  <b class="px-1">Subjects</b>
+                </a>
+              </li>
+              <li class="nav-item">
                 <a class="nav-link" href="/fees">
                   <i class="fas fa-dollar-sign"></i>
                   <b class="px-1">Fees</b>

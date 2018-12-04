@@ -24,4 +24,9 @@ class Classes extends Model
     public function exams() {
         return $this->hasMany('JSGrammar\Exam');
     }
+
+    public function subjects() {
+        return $this->hasMany('JSGrammar\Subject');
+    }
+
 }

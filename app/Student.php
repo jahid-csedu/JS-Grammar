@@ -31,6 +31,9 @@ class Student extends Model
       'previous_institute',
       'dob',
       'blood_group',
+      'admission_fee',
+      'monthly_fee',
+      'exam_fee',
     	'photo'
     ];
 

@@ -156,7 +156,7 @@
            url:'/getSections',
            data:{class:$('#class').val()},
            success:function(data){
-              $('#section').append=data;
+              $('#section').html=data;
            }
         });
         $('#class').change(function() {
@@ -165,7 +165,7 @@
                url:'/getSections',
                data:{class:this.value},
                success:function(data){
-                  $('#section').append=data;
+                  $('#section').html=data;
                }
             });
         });

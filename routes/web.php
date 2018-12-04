@@ -31,6 +31,7 @@ Route::middleware(['auth'])->group(function () {
 	Route::resource('expenses', 'ExpensesController');
 	Route::resource('accounts', 'AccountsController');
 	Route::resource('fees', 'FeesController');
+	Route::resource('subjects', 'SubjectsController');
 
 	Route::get('showAccount', 'AccountsController@showAccount');
 	Route::post('searchFees','StudentsController@searchFees');
@@ -41,5 +42,6 @@ Route::middleware(['auth'])->group(function () {
 	Route::post('searchExams','ExamsController@searchExam');
 	Route::get('showResult','ResultsController@showResult');
 	Route::get('getSections', 'SectionsController@getSections');
+	Route::get('getFees', 'FeesController@getFees');
 
 });

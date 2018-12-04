@@ -7,34 +7,35 @@
         <div class="col-md-12 col-lg-12 col-sm-auto py-3">
             <div class="card">
                 <center class="card-header justify-content-center">
-                    <a class="btn btn-success mx-2 pull-left col-md-5" href="exams/create">Add A New Exam</a>
+                    <a class="btn btn-success mx-2 pull-right col-md-5" href="/subjects/create">Add New Subject</a>
                 </center>
 
                 <div class="card-body">
-                    <table id="exams" class="table table-striped table-bordered table-hover">
+                    <table id="subjects" class="table table-striped table-bordered table-hover">
                       <thead>
                         <tr>
-                          <th scope="col">Exam Name</th>
-                          <th scope="col">পরীক্ষার নাম</th>
-                          <th scope="col">Percentile Weight</th>
+                          <th scope="col">Subject Name</th>
+                          <th scope="col">Paper</th>
+                          <th scope="col">Subject Code</th>
+                          <th scope="col">Class</th>
                           <th scope="col">Action</th>
                         </tr>
                       </thead>
                       <tbody>
-                        @foreach($exams as $serial=>$exam)
+                        @foreach($subjects as $serial=>$subject)
                             <tr>
-                              <td>{{ $exam->name_english }}</td>
-                              <td>{{ $exam->name_bangla }}</td>
-                              <td>{{ $exam->weight }}</td>
+                              <td>{{ $subject->name }}</td>
+                              <td>{{ $subject->paper }}</td>
+                              <td>{{ $subject->code }}</td>
+                              <td>{{ $subject->class }}</td>
                               <td>
-                                <form method="POST" action="{{ route('exams.destroy', $exam->id) }}">
+                                <form method="POST" action="{{ route('subjects.destroy', $subject->id) }}">
                                   @csrf
                                   @method('DELETE')
-                                  <a class="btn btn-info btn-sm" href="{{ route('exams.edit', $exam->id) }}">Edit</a>
+                                  <a class="btn btn-info btn-sm" href="{{ route('subjects.edit', $subject) }}">Edit</a>
                                   <button type="submit" class="btn btn-danger btn-sm mx-3">Delete</button>
                                 </form>
                               </td>
-
                             </tr>
                         @endforeach
                       </tbody>
@@ -49,7 +50,7 @@
 <script type="text/javascript">
     $(document).ready(function() {
       $.noConflict();
-      $('#exams').DataTable();
+      $('#subjects').DataTable();
     });
 </script>
 @endsection
