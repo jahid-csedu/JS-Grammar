@@ -155,8 +155,13 @@
            type:'GET',
            url:'/getSections',
            data:{class:$('#class').val()},
-           success:function(data){
-              $('#section').html=data;
+           success:function(sections){
+              var options="<option>All</option>";
+              for(var i=0; i<sections.length; i++) {
+                options += "<option>"+sections[i].name_english+"</option>";
+              }
+              document.getElementById('section').innerHTML=options;
+              document.getElementById('section').selectedIndex=1;
            }
         });
         $('#class').change(function() {
@@ -164,8 +169,13 @@
                type:'GET',
                url:'/getSections',
                data:{class:this.value},
-               success:function(data){
-                  $('#section').html=data;
+               success:function(sections){
+                  var options="<option>All</option>";
+                  for(var i=0; i<sections.length; i++) {
+                    options += "<option>"+sections[i].name_english+"</option>";
+                  }
+                  document.getElementById('section').innerHTML=options;
+                  document.getElementById('section').selectedIndex=1;
                }
             });
         });

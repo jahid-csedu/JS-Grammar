@@ -19,7 +19,7 @@
                 />
         </div>
         <div class="form-group row">
-            <label class="col-sm-2 col-sm-label text-right" for="pres_address">Present Address</label>
+            <label class="col-sm-2 col-sm-label text-right" for="pres_address">Present Address<span class="required text-danger">*</span></label>
            <textarea placeholder="Enter Present Address"
                 id="present_address"
                 name="present_address"
@@ -30,7 +30,7 @@
                 ></textarea>
         </div>
         <div class="form-group row">
-            <label class="col-sm-2 col-sm-label text-right" for="perm_address">Permanent Address</label>
+            <label class="col-sm-2 col-sm-label text-right" for="perm_address">Permanent Address<span class="required text-danger">*</span></label>
            <textarea placeholder="Enter Permanent Address"
                 id="permanent_address"
                 name="permanent_address"

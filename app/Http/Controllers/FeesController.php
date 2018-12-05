@@ -138,6 +138,11 @@ class FeesController extends Controller
     public function destroy(Fee $fee)
     {
         //
+        if($fee->delete()) {
+            return redirect()->route('fees.index')->with('success','The fees information was deleted successfully');
+        }
+
+        return back()->with('errors','Problem with deleting the fees information');
     }
 
     public function getFees(Request $request) {

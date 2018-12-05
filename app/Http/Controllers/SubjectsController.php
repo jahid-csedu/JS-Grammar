@@ -144,5 +144,10 @@ class SubjectsController extends Controller
     public function destroy(Subject $subject)
     {
         //
+        if($subject->delete()) {
+            return redirect()->route('subjects.index')->with('success','The subject was deleted successfully');
+        }
+
+        return back()->with('errors','Problem with deleting the subject');
     }
 }

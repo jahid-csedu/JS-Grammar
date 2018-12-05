@@ -276,18 +276,23 @@
                type:'GET',
                url:'/getSections',
                data:{class:$('#class').val()},
-               success:function(data){
-                  document.getElementById('section').innerHTML=data;
+               success:function(sections){
+                  var options="";
+                  for(var i=0; i<sections.length; i++) {
+                    options += "<option>"+sections[i].name_english+"</option>";
+                  }
+                  document.getElementById('section').innerHTML=options;
+                  document.getElementById('section').selectedIndex=-1;
                }
             });
             $.ajax({
                type:'GET',
                url:'/getFees',
                data:{class:$('#class').val()},
-               success:function(data){
-                    $('#admission_fee').val(data.admission_fee);
-                    $('#monthly_fee').val(data.monthly_fee);
-                    $('#exam_fee').val(data.exam_fee);
+               success:function(fees){
+                    $('#admission_fee').val(fees.admission_fee);
+                    $('#monthly_fee').val(fees.monthly_fee);
+                    $('#exam_fee').val(fees.exam_fee);
                }
             });
             $('#class').change(function() {
@@ -295,18 +300,23 @@
                    type:'GET',
                    url:'/getSections',
                    data:{class:this.value},
-                   success:function(data){
-                       document.getElementById('section').innerHTML=data;
+                   success:function(sections){
+                      var options="";
+                      for(var i=0; i<sections.length; i++) {
+                        options += "<option>"+sections[i].name_english+"</option>";
+                      }
+                      document.getElementById('section').innerHTML=options;
+                      document.getElementById('section').selectedIndex=-1;
                    }
                 });
                 $.ajax({
                    type:'GET',
                    url:'/getFees',
                    data:{class:this.value},
-                   success:function(data){
-                        $('#admission_fee').val(data.admission_fee);
-                        $('#monthly_fee').val(data.monthly_fee);
-                        $('#exam_fee').val(data.exam_fee);
+                   success:function(fees){
+                        $('#admission_fee').val(fees.admission_fee);
+                        $('#monthly_fee').val(fees.monthly_fee);
+                        $('#exam_fee').val(fees.exam_fee);
                    }
                 });
             });
