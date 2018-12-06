@@ -43,44 +43,50 @@ class ExpensesController extends Controller
         //
         $request->validate([
             'type' => 'required|string|max:255',
-            'description' => 'required|string|max:255',
+            'description' => 'nullable|string|max:255',
             'amount' => 'required|integer',
             'date' => 'required|date',
         ]);
 
+        $teacherId = $request->teacher_id;
+        $month = $request->month;
+        $year = $request->year;
+        $description = $request->description;
+        $amount = $request->amount;
+        $date = $request->date;
+
         $expense = new Expense();
+        $expense->type = $request->type;
         if($request->type === 'Salary') {
-            $expense->teacher_id = $request->teacher_id;
-            $expense->month = $request->month;
-            $expense->year = $request->year;
+            $teacher = Teacher::where('id', $teacherId)->first();
+            if($teacher){
+              $expense->teacher_id = $teacherId;
+              $expense->month = $month;
+              $expense->year = $year;
+              $expense->description = "Salary given to ".$teacher->name."(".$teacher->designation.") of the month ".$month."-".$year;
+            }else{
+              return redirect()->back()->withInput()->with('errors', 'Please enter a valid teacher ID');
+            }
+        }else if($request->type === 'House Rent') {
+            $expense->month = $month;
+            $expense->year = $year;
+            $expense->description = "House Rent paid of the month ".$month."-".$year;
+        }else if($request->type === 'Bill'){
+            $expense->month = $month;
+            $expense->year = $year;
+            $expense->description = "Commodity Bill paid of the month ".$month."-".$year;
+        }else{
+            if($request->description == null){
+              return redirect()->back()->withInput()->with('errors', 'Please enter a proper description');
+            }
+            $expense->description = $request->description;
         }
-        if($request->type === 'House Rent' || $request->type === 'Bill') {
-            $expense->month = $request->month;
-            $expense->year = $request->year;
-        }
-        $expense->description = $request->description;
         $expense->amount = $request->amount;
         $expense->date = $request->date;
         if($expense->save()) {
-            $account = new Account();
-            if($request->type === 'Salary') {
-                $teacherId = $request->teacher_id;
-                $teacherName = Teacher::where('id', $teacherId)->first();
-                $account->description = "Salary paid to  ".$teacherName."(ID: ".$teacherId."(".$request->month."-".$request->year.")";
-            }else if($request->type === 'House Rent') {
-                $account->description = "House Rent paid of Month: ".$request->month."-".$request->year;
-            }else if($request->type === 'Bill') {
-                $account->description = "Bill paid of Month: ".$request->month."-".$request->year;
-            }else{
-                $account->description = $request->description;
-            }
-            $account->debit = $request->amount;
-            $account->credit = 0;
-            $account->date = $request->date;
-            $account->save();
-            return redirect()->route('expenses.index')->with('success', 'The information added successfully');
+            return redirect()->route('expenses.index')->with('success', 'The Expense information added successfully');
         }else {
-            return redirect()->back()->withInput()->with('errors', 'Problem with adding the information, Please try again');
+            return redirect()->back()->withInput()->with('errors', 'Problem with adding the Expense information, Please try again');
         }
     }
 
@@ -104,6 +110,7 @@ class ExpensesController extends Controller
     public function edit(Expense $expense)
     {
         //
+        return view('expenses.edit', ['expense'=>$expense]);
     }
 
     /**
@@ -116,6 +123,53 @@ class ExpensesController extends Controller
     public function update(Request $request, Expense $expense)
     {
         //
+        $request->validate([
+            'type' => 'required|string|max:255',
+            'description' => 'nullable|string|max:255',
+            'amount' => 'required|integer',
+            'date' => 'required|date',
+        ]);
+
+        $teacherId = $request->teacher_id;
+        $month = $request->month;
+        $year = $request->year;
+        $description = $request->description;
+        $amount = $request->amount;
+        $date = $request->date;
+
+        $expense = Expense::find($expense->id);
+        $expense->type = $request->type;
+        if($request->type === 'Salary') {
+            $teacher = Teacher::where('id', $teacherId)->first();
+            if($teacher){
+              $expense->teacher_id = $teacherId;
+              $expense->month = $month;
+              $expense->year = $year;
+              $expense->description = "Salary given to ".$teacher->name."(".$teacher->designation.") of the month ".$month."-".$year;
+            }else{
+              return redirect()->back()->withInput()->with('errors', 'Please enter a valid teacher ID');
+            }
+        }else if($request->type === 'House Rent') {
+            $expense->month = $month;
+            $expense->year = $year;
+            $expense->description = "House Rent paid of the month ".$month."-".$year;
+        }else if($request->type === 'Bill'){
+            $expense->month = $month;
+            $expense->year = $year;
+            $expense->description = "Commodity Bill paid of the month ".$month."-".$year;
+        }else{
+            if($request->description == null){
+              return redirect()->back()->withInput()->with('errors', 'Please enter a proper description');
+            }
+            $expense->description = $request->description;
+        }
+        $expense->amount = $request->amount;
+        $expense->date = $request->date;
+        if($expense->save()) {
+            return redirect()->route('expenses.index')->with('success', 'The Expense information updated successfully');
+        }else {
+            return redirect()->back()->withInput()->with('errors', 'Problem with updating the Expense information, Please try again');
+        }
     }
 
     /**

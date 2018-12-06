@@ -111,6 +111,12 @@ class FeesController extends Controller
             'monthly_fee' => 'required|integer',
             'exam_fee' => 'required|integer'
         ]);
+        $hasFees = Fee::where('class', $request->class)->first();
+        if($hasFees) {
+            return back()
+            ->withInput()
+            ->with('errors','Fees information of this class already exists');
+        }
         $fee = Fee::find($fee->id);
         $fee->class = $request->class;
         $fee->admission_fee = $request->admission_fee;

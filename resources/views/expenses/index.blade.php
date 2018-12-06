@@ -27,6 +27,7 @@
                               <td>{{ $expense->description }}</td>
                               <td>{{ $expense->amount }}</td>
                               <td>
+                                <a class="btn btn-info btn-sm" href="{{ route('expenses.edit', $expense->id) }}">Edit</a>
                                 <a href="#" class="btn btn-danger btn-sm mx-3" data-toggle="modal" data-target="#deleteConfirmationModal{{ $expense->id }}">Delete</a>
 
                                   <!-- Delete Confirmation Modal -->
@@ -80,7 +81,7 @@
                   <div class="form-group row my-4">
                       <label class="col-sm-2 col-sm-label text-right" for="from_date">From Date</label>
                       <input placeholder="MM\DD\YYYY"
-                          type="date" 
+                          type="date"
                           id="from_date"
                           name="from_date"
                           spellcheck="false"
@@ -90,7 +91,7 @@
                   <div class="form-group row my-4">
                       <label class="col-sm-2 col-sm-label text-right" for="to_date">Upto Date</label>
                       <input placeholder="MM\DD\YYYY"
-                          type="date" 
+                          type="date"
                           id="to_date"
                           name="to_date"
                           spellcheck="false"
