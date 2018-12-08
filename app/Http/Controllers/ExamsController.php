@@ -104,11 +104,6 @@ class ExamsController extends Controller
             'weight' => 'required|integer'
         ]);
 
-        $hasExam = Exam::where('name_english', $request->name_english)->first();
-        if($hasExam) {
-            return back()->withInput()->with('errors','This exam information already exists');
-        }
-
         $exam = Exam::find($exam->id);
         $exam->name_english = $request->name_english;
         $exam->name_bangla = $request->name_bangla;

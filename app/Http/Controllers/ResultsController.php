@@ -5,6 +5,7 @@ namespace JSGrammar\Http\Controllers;
 use JSGrammar\Result;
 use JSGrammar\Exam;
 use JSGrammar\Student;
+use JSGrammar\Classes;
 use Illuminate\Http\Request;
 
 class ResultsController extends Controller
@@ -17,7 +18,9 @@ class ResultsController extends Controller
     public function index()
     {
         //
-        return view('results.index');
+        $exams = Exam::all();
+        $classes = Classes::orderBy('class')->get();
+        return view('results.index', ['exams'=>$exams, 'classes'=>$classes]);
     }
 
     /**
@@ -104,7 +107,7 @@ class ResultsController extends Controller
         $exam = Exam::find($examId);
         $results = Result::where('exam_id', $examId)->orderBy('marks','desc')->get();
         $highest = Result::where('exam_id', $examId)->max('marks');
-        return view('results.show', ['results'=>$results, 'exam'=>$exam, 'highest'=>$highest]); 
+        return view('results.show', ['results'=>$results, 'exam'=>$exam, 'highest'=>$highest]);
     }
 
     /**

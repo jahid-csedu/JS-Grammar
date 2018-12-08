@@ -111,12 +111,6 @@ class SubjectsController extends Controller
             'class' => 'required|string',
             'code' => 'required|integer'
         ]);
-        $hasSubject = Subject::where(['class'=>$request->class, 'name'=>$request->name, 'code'=>$request->code])->first();
-        if($hasSubject) {
-            return back()
-            ->withInput()
-            ->with('errors','The subject already exists');
-        }
         $subject = Subject::find($subject->id);
         $subject->name = $request->name;
         $subject->paper = $request->paper;

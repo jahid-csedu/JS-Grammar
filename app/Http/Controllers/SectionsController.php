@@ -124,12 +124,6 @@ class SectionsController extends Controller
             'class' => 'required|string',
             'shift' => 'required'
         ]);
-        $hasSection = Section::where(['class'=>$request->class, 'name_english'=>$request->name_english, 'shift'=>$request->shift])->first();
-        if($hasSection) {
-            return back()
-            ->withInput()
-            ->with('errors','The section already exists');
-        }
         $section = Section::find($section->id);
         $section->name_english = $request->name_english;
         $section->name_bangla = $request->name_bangla;
