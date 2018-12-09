@@ -11,7 +11,7 @@ class Teacher extends Model
     protected $primaryKey = 'id';
     public $incrementing = false;
     protected $fillable = [
-        'id',
+      'id',
     	'name',
     	'present_address',
     	'permanent_address',

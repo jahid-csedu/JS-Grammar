@@ -23,6 +23,8 @@ class CreateExpensesTable extends Migration
             $table->integer('amount')->unsigned();
             $table->date('date');
             $table->timestamps();
+
+            $table->foreign('teacher_id')->references('id')->on('teachers')->onDelete('cascade');
         });
     }
 

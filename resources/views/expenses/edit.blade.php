@@ -50,28 +50,36 @@
                 />
         </div>
         <div class="form-group row monthly">
+          <?php $months = array('January',
+                                'February',
+                                'March',
+                                'April',
+                                'May',
+                                'June',
+                                'July',
+                                'August',
+                                'September',
+                                'October',
+                                'November',
+                                'December'
+                          );?>
             <label class="col-sm-2 col-sm-label text-right" for="month">Month</label>
             <select id="month" name="month" class="form-control col-sm-9">
-                <option>January</option>
-                <option>February</option>
-                <option>March</option>
-                <option>April</option>
-                <option>May</option>
-                <option>June</option>
-                <option>July</option>
-                <option>August</option>
-                <option>September</option>
-                <option>October</option>
-                <option>November</option>
-                <option>December</option>
+              @foreach($months as $month)
+                @if($expense->month === $month)
+                  <option selected>{{ $month }}</option>
+                @else
+                  <option>{{ $month }}</option>
+                @endif
+              @endforeach
             </select>
         </div>
         <div class="form-group row monthly">
             <label class="col-sm-2 col-sm-label text-right" for="year">Year</label>
             <select id="year" name="year" class="form-control col-sm-9">
-                <option>{{ Date('Y') }}</option>
-                <option>{{ Date('Y')-1 }}</option>
-                <option>{{ Date('Y')+1 }}</option>
+                <option>{{ $expense->year }}</option>
+                <option>{{ (int)$expense->year-1 }}</option>
+                <option>{{ (int)$expense->year+1 }}</option>
             </select>
         </div>
         <div class="form-group row description">
