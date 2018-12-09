@@ -5,6 +5,7 @@ namespace JSGrammar\Http\Controllers;
 use JSGrammar\Payment;
 use JSGrammar\Student;
 use JSGrammar\Account;
+use JSGrammar\Exam;
 use Illuminate\Http\Request;
 
 class PaymentsController extends Controller
@@ -29,7 +30,8 @@ class PaymentsController extends Controller
     public function create()
     {
         //
-        return view('payments.create');
+        $exams = Exam::all();
+        return view('payments.create', ['exams'=>$exams]);
     }
 
     /**
