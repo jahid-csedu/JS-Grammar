@@ -351,4 +351,12 @@ class StudentsController extends Controller
         }
     }
 
+    public function getStudent(Request $request) {
+        if($request->ajax()) {
+            $studentId = $request->student_id;
+            $student = Student::find($studentId);
+            return $student;
+        }
+    }
+
 }

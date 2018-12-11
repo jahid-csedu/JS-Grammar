@@ -37,6 +37,7 @@ class CreateStudentsTable extends Migration
             $table->integer('admission_fee');
             $table->integer('monthly_fee');
             $table->integer('exam_fee');
+            $table->integer('due')->default(0);
             $table->binary('photo')->nullable();
             $table->timestamps();
         });

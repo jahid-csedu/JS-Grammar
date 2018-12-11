@@ -133,4 +133,11 @@ class ExamsController extends Controller
         return back()->withInput()->with('errors','Problem with deleting the exam');
     }
 
+    public function getExams(Request $request) {
+        if($request->ajax()) {
+            $exams = Exam::all();
+            return $exams;
+        }
+    }
+
 }

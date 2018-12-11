@@ -42,6 +42,8 @@ Route::middleware(['auth'])->group(function () {
 	Route::post('searchExams','ExamsController@searchExam');
 	Route::get('showResult','ResultsController@showResult');
 	Route::get('getSections', 'SectionsController@getSections');
+	Route::get('getStudent', 'StudentsController@getStudent');
+	Route::get('getExams', 'ExamsController@getExams');
 	Route::get('getFees', 'FeesController@getFees');
 
 });
