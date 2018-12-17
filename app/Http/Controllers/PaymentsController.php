@@ -4,7 +4,7 @@ namespace JSGrammar\Http\Controllers;
 
 use JSGrammar\Payment;
 use JSGrammar\Student;
-use JSGrammar\Account;
+use JSGrammar\Transaction;
 use JSGrammar\Exam;
 use Illuminate\Http\Request;
 
@@ -128,11 +128,6 @@ class PaymentsController extends Controller
     public function destroy(Payment $payment)
     {
         //
-        if($payment->delete()) {
-            return redirect()->route('payments.index')->with('success','The payment record was deleted successfully');
-        }
-
-        return back()->withInput()->with('errors','Problem with deleting the payment record');
     }
 
     public function searchPayment(Request $request) {

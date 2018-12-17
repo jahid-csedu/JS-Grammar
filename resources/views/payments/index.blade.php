@@ -21,7 +21,6 @@
                           <th scope="col">Payment Type</th>
                           <th scope="col">Month</th>
                           <th scope="col">Amount</th>
-                          <th scope="col">Actions</th>
                       </thead>
                       <tbody>
                         @foreach($payments as $serial=>$payment)
@@ -32,14 +31,6 @@
                               <td>{{ $payment->type }}</td>
                               <td>{{ $payment->month."- ".$payment->year }}</td>
                               <td>{{ $payment->amount }}</td>
-                              <td>
-                                <form method="POST" action="{{ route('payments.destroy', $payment->id) }}">
-                                  @csrf
-                                  @method('DELETE')
-                                  <button type="submit" class="btn btn-danger btn-sm mx-3">Delete</button>
-                                </form>
-                              </td>
-
                             </tr>
                         @endforeach
                       </tbody>

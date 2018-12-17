@@ -31,62 +31,62 @@
         </div><hr>
         <div class="form-group row mx-5">
             <div class="form-check form-check-inline mb-3 mx-3 col January">
-              <input class="form-check-input" type="checkbox" value="January" id="January">
+              <input class="form-check-input" type="checkbox" value="January" id="January" name="January">
               <label class="form-check-label" for="January">January</label>
             </div>
             <div class="form-check form-check-inline mb-3 mx-3 col February">
-              <input class="form-check-input" type="checkbox" value="February" id="February">
+              <input class="form-check-input" type="checkbox" value="February" id="February" name="February">
               <label class="form-check-label" for="February">February</label>
             </div>
             <div class="form-check form-check-inline mb-3 mx-3 col March">
-              <input class="form-check-input" type="checkbox" value="March" id="March">
+              <input class="form-check-input" type="checkbox" value="March" id="March" name="March">
               <label class="form-check-label" for="March">March</label>
             </div>
             <div class="form-check form-check-inline mb-3 mx-3 col April">
-              <input class="form-check-input" type="checkbox" value="April" id="April">
+              <input class="form-check-input" type="checkbox" value="April" id="April" name="April">
               <label class="form-check-label" for="April">April</label>
             </div>
         </div>
         <div class="form-group row mx-5">
             <div class="form-check form-check-inline mb-3 mx-3 col May">
-              <input class="form-check-input" type="checkbox" value="May" id="May">
+              <input class="form-check-input" type="checkbox" value="May" id="May" name="May">
               <label class="form-check-label" for="May">May</label>
             </div>
             <div class="form-check form-check-inline mb-3 mx-3 col June">
-              <input class="form-check-input" type="checkbox" value="June" id="June">
+              <input class="form-check-input" type="checkbox" value="June" id="June" name="June">
               <label class="form-check-label" for="June">June</label>
             </div>
             <div class="form-check form-check-inline mb-3 mx-3 col July">
-              <input class="form-check-input" type="checkbox" value="July" id="July">
+              <input class="form-check-input" type="checkbox" value="July" id="July" name="July">
               <label class="form-check-label" for="July">July</label>
             </div>
             <div class="form-check form-check-inline mb-3 mx-3 col August">
-              <input class="form-check-input" type="checkbox" value="August" id="August">
+              <input class="form-check-input" type="checkbox" value="August" id="August" name="August">
               <label class="form-check-label" for="August">August</label>
             </div>
         </div>
         <div class="form-group row mx-5">
             <div class="form-check form-check-inline mb-3 mx-3 col September">
-              <input class="form-check-input" type="checkbox" value="September" id="September">
+              <input class="form-check-input" type="checkbox" value="September" id="September" name="September">
               <label class="form-check-label" for="September">September</label>
             </div>
             <div class="form-check form-check-inline mb-3 mx-3 col October">
-              <input class="form-check-input" type="checkbox" value="October" id="October">
+              <input class="form-check-input" type="checkbox" value="October" id="October" name="October">
               <label class="form-check-label" for="October">October</label>
             </div>
             <div class="form-check form-check-inline mb-3 mx-3 col November">
-              <input class="form-check-input" type="checkbox" value="November" id="November">
+              <input class="form-check-input" type="checkbox" value="November" id="November" name="November">
               <label class="form-check-label" for="November">November</label>
             </div>
             <div class="form-check form-check-inline mb-3 mx-3 col December">
-              <input class="form-check-input" type="checkbox" value="December" id="December">
+              <input class="form-check-input" type="checkbox" value="December" id="December" name="December">
               <label class="form-check-label" for="December">December</label>
             </div>
         </div><hr>
         <div class="form-group row mx-5">
           @foreach($exams as $exam)
             <div class="form-check form-check-inline mb-3 mx-3 col {{ $exam->name_english }}">
-              <input class="form-check-input" type="checkbox" value="{{ $exam->name_english }}" id="{{ $exam->id }}">
+              <input class="form-check-input" type="checkbox" value="{{ $exam->name_english }}" id="{{ $exam->id }}" name="{{ $exam->id }}">
               <label class="form-check-label" for="{{ $exam->id }}">{{ $exam->name_english }}</label>
             </div>
           @endforeach

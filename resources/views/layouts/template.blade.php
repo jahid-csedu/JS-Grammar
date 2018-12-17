@@ -84,12 +84,6 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/accounts">
-                  <i class="fas fa-money-check"></i>
-                  <b class="px-1">Accounts</b>
-                </a>
-              </li>
-              <li class="nav-item">
                 <a class="nav-link" href="/classes">
                   <i class="fas fa-bell "></i>
                   <b class="px-1">Classes</b>
