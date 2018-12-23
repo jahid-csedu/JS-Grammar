@@ -28,7 +28,7 @@
       <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
       <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
-          <a class="nav-link" href="{{ route('logout') }}" 
+          <a class="nav-link" href="{{ route('logout') }}"
               onclick="event.preventDefault();
               document.getElementById('logout-form').submit();">
               {{ __('Logout') }}</a>
@@ -107,6 +107,12 @@
                   <b class="px-1">Fees</b>
                 </a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/users">
+                  <i class="fas fa-user"></i>
+                  <b class="px-1">Users</b>
+                </a>
+              </li>
             </ul>
 
             <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
@@ -155,6 +161,6 @@
     <div>
       @yield('scripts')
     </div>
-    
+
 </body>
 </html>
