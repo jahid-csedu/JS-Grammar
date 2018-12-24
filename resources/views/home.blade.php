@@ -63,7 +63,7 @@
                 @foreach($payments as $serial=>$payment)
                     <tr>
                       <td>{{ $payment->student_id }}</td>
-                      <td>{{ $payment->student->name }}</td>
+                      <td>{{ $payment->student->name_english }}</td>
                       <td>{{ $payment->student->class }}</td>
                       <td>{{ $payment->student->section }}</td>
                       <td>{{ $payment->date }}</td>

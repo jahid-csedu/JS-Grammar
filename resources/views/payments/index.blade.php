@@ -18,8 +18,7 @@
                           <th scope="col">Date</th>
                           <th scope="col">Student ID</th>
                           <th scope="col">Student Name</th>
-                          <th scope="col">Payment Type</th>
-                          <th scope="col">Month</th>
+                          <th scope="col">Description</th>
                           <th scope="col">Amount</th>
                       </thead>
                       <tbody>
@@ -27,9 +26,8 @@
                             <tr>
                               <td>{{ $payment->date }}</td>
                               <td>{{ $payment->student_id }}</td>
-                              <td>{{ $payment->student->name }}</td>
-                              <td>{{ $payment->type }}</td>
-                              <td>{{ $payment->month."- ".$payment->year }}</td>
+                              <td>{{ $payment->student->name_english }}</td>
+                              <td>{{ $payment->description }}</td>
                               <td>{{ $payment->amount }}</td>
                             </tr>
                         @endforeach

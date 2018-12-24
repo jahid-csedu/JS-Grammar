@@ -55,7 +55,7 @@ class ClassesController extends Controller
                 'name_bangla' => 'required|string|max:255',
                 'class' => 'required|integer'
             ]);
-            $hasClass = Classes::where('class', $request->class)->first();
+            $hasClass = Classes::where(['class'=> $request->class, 'name_english'=>$request->name_english, 'name_bangla' => $request->name_bangla])->first();
             if($hasClass) {
                 return back()
                 ->withInput()

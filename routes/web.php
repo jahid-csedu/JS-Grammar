@@ -44,5 +44,7 @@ Route::middleware(['auth'])->group(function () {
 	Route::get('getStudent', 'StudentsController@getStudent');
 	Route::get('getExams', 'ExamsController@getExams');
 	Route::get('getFees', 'FeesController@getFees');
+	Route::get('getPayments', 'PaymentsController@getPayments');
+	Route::get('getExamId', 'ExamsController@getExamId');
 
 });

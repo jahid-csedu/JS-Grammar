@@ -6,6 +6,7 @@ use JSGrammar\Payment;
 use JSGrammar\Student;
 use JSGrammar\Transaction;
 use JSGrammar\Exam;
+use JSGrammar\StudentPayment;
 use Illuminate\Http\Request;
 
 class PaymentsController extends Controller
@@ -45,43 +46,89 @@ class PaymentsController extends Controller
         //
         $request->validate([
             'student_id' => 'required|string|max:255',
-            'type' => 'required|string|max:255',
-            'description' => 'nullable|string|max:255',
-            'amount' => 'required|integer',
+            'paid_amount' => 'required|integer',
+            'payment_due' => 'required|integer',
             'date' => 'required|date'
         ]);
 
         $studentId = $request->student_id;
-        if(Student::find($studentId)) {
+        $student = Student::find($studentId);
+        if($student){
+
+            $months = $request->input('months');
+            $admission = $request->input('admission');
+            $exams = $request->input('exams');
+            //generate trx ID
+            $trx = Transaction::select('id')->orderBy('created_at', 'desc')->first();
+            if($trx) {
+              $trxId = $trx->id+1;
+            }else {
+              $trxId = 1;
+            }
+            //modify description and add to student_payments table
+            $description = "Payment collected from student ".$studentId." --";
+            if($admission) {
+                $description .= "Admission Fee-". date('y').", ";
+                $studentPayment = new StudentPayment();
+                $studentPayment->student_id = $studentId;
+                $studentPayment->type = "Admission Fee";
+                $studentPayment->trx_id = $trxId;
+                $studentPayment->year = date('y');
+                $studentPayment->save();
+            }
+            if($months) {
+                foreach($months as $month) {
+                    $description .= $month."-". date('y').", ";
+                    $studentPayment = new StudentPayment();
+                    $studentPayment->student_id = $studentId;
+                    $studentPayment->type = "Monthly Fee";
+                    $studentPayment->trx_id = $trxId;
+                    $studentPayment->month = $month;
+                    $studentPayment->year = date('y');
+                    $studentPayment->save();
+                }
+            }
+            if($exams) {
+                foreach($exams as $exam) {
+                    $description .= $exam."-". date('y').", ";
+                    $studentPayment = new StudentPayment();
+                    $studentPayment->student_id = $studentId;
+                    $studentPayment->type = "Exam Fee";
+                    $studentPayment->trx_id = $trxId;
+                    $studentPayment->exam_name = $exam;
+                    $studentPayment->year = date('y');
+                    $studentPayment->save();
+                }
+            }
+            if($request->current_amount < $request->paid_amount) {
+                $description .= "Due Collection";
+            }
             $payment = new Payment();
             $payment->student_id = $studentId;
-            $payment->type = $request->type;
-            if($request->type === 'Monthly Fee') {
-                $payment->month = $request->month;
-                $payment->year = $request->year;
-            }
-            $payment->description = $request->description;
-            $payment->amount = $request->amount;
+            $payment->trx_id = $trxId;
+            $payment->description = $description;
+            $payment->amount = $request->paid_amount;
             $payment->date = $request->date;
-
             if($payment->save()) {
-                $account = new Account();
-                if($request->type === 'Monthly Fee') {
-                    $account->description = "Payment Received of Student ".$studentId."(".$request->month."-".$request->year.")";
-                }else {
-                    $account->description = "Payment Received of Student ".$studentId."(".$request->type."-".$request->description.")";
-                }
-                $account->debit = 0;
-                $account->credit = $request->amount;
-                $account->date = $request->date;
-                $account->save();
-                return redirect()->route('payments.index')->with('success', 'Payment information added successfully');
-            }else {
-                return redirect()->back()->withInput()->with('errors','Could not added payment information. Please try again');
+                //Save a record in transaction table
+                $transaction = new Transaction();
+                $transaction->id = $trxId;
+                $transaction->date = $request->date;
+                $transaction->description = $description;
+                $transaction->credit = $request->paid_amount;
+                $transaction->save();
+                //update due 
+                $student = Student::find($studentId);
+                $student->due = $request->payment_due;
+                $student->save();
+
+                return redirect()->route('payments.index')->with('success', 'The Payment information added successfully');
             }
-        }else {
-            return redirect()->back()->withInput()->with('errors', 'The student ID does not exist. Please enter a valid student ID');
+            return redirect()->back()->withInput()->with('errors', 'Problem with adding the Payment information, Please try again');
+        }else{
+            return redirect()->back()->withInput()->with('errors', 'The Student ID is not valid');
         }
+
 
     }
 
@@ -153,5 +200,11 @@ class PaymentsController extends Controller
                 return redirect()->route('payments.index')->with('errors','No Payment Record Found');
             }
         }
+    }
+
+    public function getPayments(Request $request) {
+        $studentId = $request->student_id;
+        $payments = StudentPayment::where('student_id', $studentId)->get();
+        return $payments;
     }
 }

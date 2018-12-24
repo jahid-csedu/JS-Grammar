@@ -140,4 +140,11 @@ class ExamsController extends Controller
         }
     }
 
+    public function getExamId(Request $request) {
+        if($request->ajax()) {
+            $examId = Exam::select('id')->where('name_english', $request->exam)->first();
+            return $examId;
+        }
+    }
+
 }

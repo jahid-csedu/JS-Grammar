@@ -4,19 +4,15 @@ namespace JSGrammar;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Payment extends Model
+class StudentPayment extends Model
 {
-    //
-    protected $table = 'payment';
     protected $fillable = [
+    	'trx_id',
     	'student_id',
-        'trx_id',
     	'type',
     	'month',
     	'year',
-    	'description',
-    	'amount',
-    	'date'
+    	'exam_name'
     ];
 
     public function student() {

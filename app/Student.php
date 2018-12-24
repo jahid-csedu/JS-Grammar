@@ -53,4 +53,8 @@ class Student extends Model
         return $this->hasMany('JSGrammar\Payment');
     }
 
+    public function studentPayments() {
+        return $this->hasMany('JSGrammar\StudentPayment');
+    }
+
 }

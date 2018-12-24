@@ -57,7 +57,7 @@ class SectionsController extends Controller
                 'class' => 'required|string',
                 'shift' => 'required'
             ]);
-            $hasSection = Section::where(['class'=>$request->class, 'name_english'=>$request->name_english, 'shift'=>$request->shift])->first();
+            $hasSection = Section::where(['class'=>$request->class, 'name_bangla'=>$request->name_bangla, 'name_english'=>$request->name_english, 'shift'=>$request->shift])->first();
             if($hasSection) {
                 return back()
                 ->withInput()

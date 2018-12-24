@@ -93,7 +93,7 @@ class StudentsController extends Controller
         $student->monthly_fee = $request->monthly_fee;
         $student->exam_fee = $request->exam_fee;
 
-        //generating the Student ID[10{academic year}{class}{serial}]
+        //generating the Student ID[1{academic year}{class}{serial}]
         $classObject = Classes::where('name_english',$request->class)->first();
         $class = $classObject->class;
         $lastStudent = Student::where(['class' => $request->class, 'academic_year' => $request->academic_year])->orderBy('created_at','desc')->first();
@@ -101,7 +101,7 @@ class StudentsController extends Controller
         $id=null;
         if($lastStudent) {//if previous student exists of this class
             $lastId = $lastStudent->id;
-            $idSerial = (int)substr($lastId, 8)+1;
+            $idSerial = (int)substr($lastId, 5)+1;
             if($idSerial<10) {
                 if($class <10) {
                     $id = '1'.$year.'0'.$class.'0'.$idSerial;
