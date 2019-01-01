@@ -359,4 +359,12 @@ class StudentsController extends Controller
         }
     }
 
+    public function searchID(Request $request) {
+        $class = $request->class;
+        $section = $request->section;
+        $roll = $request->roll;
+        $students = Student::where(['class'=>$class, 'section'=>$section, 'roll'=>$roll])->get();
+        return $students;
+    }
+
 }

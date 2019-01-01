@@ -70,16 +70,6 @@
                   document.getElementById('section').selectedIndex=-1;
                }
             });
-            $.ajax({
-               type:'GET',
-               url:'/getFees',
-               data:{class:$('#class').val()},
-               success:function(fees){
-                    $('#admission_fee').val(fees.admission_fee);
-                    $('#monthly_fee').val(fees.monthly_fee);
-                    $('#exam_fee').val(fees.exam_fee);
-               }
-            });
             $('#class').change(function() {
                 $.ajax({
                    type:'GET',

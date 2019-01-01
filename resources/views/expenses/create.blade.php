@@ -17,15 +17,18 @@
                 <option>Others</option>
             </select>
         </div>
-        <div class="form-group row teacherId">
+        <div class="form-group input-group row teacherId">
             <label class="col-sm-2 col-sm-label text-right" for="teacher_id">Teacher's ID<span class="required text-danger">*</span></label>
             <input placeholder="Enter ID"
                 value="{{ old('teacher_id') }}"
                 id="teacher_id"
                 name="teacher_id"
                 spellcheck="false"
-                class="form-control col-sm-9"
+                class="form-control col-sm-8"
                 />
+            <div class="input-group-append">
+                <a class="btn btn-success" id="search_teacher" href="#" data-toggle="modal" data-target="#searchModal">Search Teacher</a>
+            </div>
         </div>
         <div class="form-group row monthly">
             <label class="col-sm-2 col-sm-label text-right" for="month">Month</label>
@@ -93,6 +96,53 @@
             <input type="submit" class="btn btn-primary mx-4" value="Submit"/>
         </div>
     </form>
+
+     <!-- Modal for Search Teacher ID-->
+        <div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Search Teacher</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="input-group mb-3">
+
+                    <div class="input-group-prepend">
+                      <label class="input-group-text bg-default" for="teacher_name">Teacher Name</label>
+                    </div>
+                    <input placeholder="Enter Name" 
+                    type="text" 
+                    name="teacher_name"
+                    id="teacher_name"
+                    required
+                    class="form-control">
+                    <div class="input-group-append">
+                        <button type="button" class="btn btn-info" id="search">Search</button>
+                    </div>
+                </div>
+
+                    <table class="table table-striped table-bordered table-hover">
+                      <thead>
+                        <tr>
+                          <th scope="col">ID</th>
+                          <th scope="col">Teacher's Name</th>
+                          <th scope="col">Designation</th>
+                        </tr>
+                      </thead>
+                      <tbody id="teachers">
+                      </tbody>
+                    </table>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End Modal-->
 </div>
 @endsection
 
@@ -123,6 +173,26 @@
                         $('.description').slideDown(300);
                         break;
                 }
+            });
+            $('#search').click(function() {
+                var teacherName = $('#teacher_name').val();
+                console.log(teacherName);
+                $.ajax({
+                    type:'GET',
+                    url:'/getTeacherID',
+                    data:{name:teacherName},
+                    success:function(teachers){
+                        var row="";
+                        for(var i=0; i<teachers.length; i++) {
+                          row += "<tr>";
+                          row += "<td>"+teachers[i].id+"</td>";
+                          row += "<td>"+teachers[i].name+"</td>";
+                          row += "<td>"+teachers[i].designation+"</td>";
+                          row +="</tr>";
+                        }
+                        document.getElementById('teachers').innerHTML=row;
+                    }
+                });
             });
         });
     </script>

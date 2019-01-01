@@ -185,4 +185,10 @@ class TeachersController extends Controller
             return redirect()->route('teachers.index')->with('errors','No Teacher found with this ID');
         }
     }
+
+    public function searchTeacherID(Request $request) {
+        $teacherName = $request->name;
+        $teachers = Teacher::where('name', 'like', '%'.$teacherName.'%')->get();
+        return $teachers;
+    }
 }

@@ -6,22 +6,25 @@
         Add A New Payment
     </h2>
     <hr>
-    <form method="post" action="{{ route('payments.store') }}">
+    <form method="post" action="{{ route('payments.store') }}" style="font-size: 16px">
         @csrf
-        <div class="form-group row">
+        <div class="input-group row">
             <label class="col-sm-2 col-sm-label text-right" for="student_id">Student ID<span class="required text-danger">*</span></label>
            <input placeholder="Enter ID"
                 value="{{ old('student_id') }}"
                 id="student_id"
                 required
                 name="student_id"
-                spellcheck="false"
                 class="form-control col-sm-7"
+                aria-label="Enter ID"
+                aria-describedby="basic-addon2"
             />
             <div class="input-group-append">
+                <a class="btn btn-success" id="search_student" href="#" data-toggle="modal" data-target="#searchModal">Search Student</a>
                 <button type="button" class="btn btn-info" id="show_payment">Show Payments</button>
             </div>
         </div>
+        <br><hr>
         <div id="payments" style="display: none">
         <center><h2 id="student_name">Student Name</h2></center><hr>
     
@@ -172,6 +175,63 @@
         </div>
       </div>
     </form>
+
+     <!-- Modal -->
+        <div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Search Student</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                  <div class="input-group mb-3">
+
+                    <div class="input-group-prepend">
+                      <label class="input-group-text bg-success" for="class">Class</label>
+                    </div>
+                    <select class="custom-select" id="class" name="class">
+                      @foreach($classes as $class)
+                        <option>{{$class->name_english}}</option>
+                      @endforeach
+                    </select>
+
+                    <div class="input-group-prepend">
+                      <label class="input-group-text bg-success" for="section">Section</label>
+                    </div>
+                    <select class="custom-select" id="section" name="section">
+                    </select>
+
+                    <div class="input-group-prepend">
+                      <label class="input-group-text bg-success" for="roll">Roll</label>
+                    </div>
+                    <input type="number" class="form-control" id="roll" name="roll">
+
+                  </div>
+
+                    <table class="table table-striped table-bordered table-hover">
+                      <thead>
+                        <tr>
+                          <th scope="col">ID</th>
+                          <th scope="col">Student's Name</th>
+                          <th scope="col">Class</th>
+                          <th scope="col">Section</th>
+                          <th scope="col">Roll Number</th>
+                        </tr>
+                      </thead>
+                      <tbody id="students">
+                      </tbody>
+                    </table>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End Modal-->
 </div>
 @endsection
 
@@ -319,6 +379,76 @@
             var total = $('#total_amount').val();
             var due = total-paid;
             $('#payment_due').val(due);
+          });
+          //Ajax call for Student search  modal
+          $.ajax({
+             type:'GET',
+             url:'/getSections',
+             data:{class:$('#class').val()},
+             success:function(sections){
+                var options="";
+                for(var i=0; i<sections.length; i++) {
+                  options += "<option>"+sections[i].name_english+"</option>";
+                }
+                document.getElementById('section').innerHTML=options;
+                document.getElementById('section').selectedIndex=-1;
+             }
+          });
+          $('#class').change(function() {
+              $.ajax({
+                 type:'GET',
+                 url:'/getSections',
+                 data:{class:this.value},
+                 success:function(sections){
+                    var options="";
+                    for(var i=0; i<sections.length; i++) {
+                      options += "<option>"+sections[i].name_english+"</option>";
+                    }
+                    document.getElementById('section').innerHTML=options;
+                    document.getElementById('section').selectedIndex=-1;
+                 }
+              });
+          });
+
+          $('#roll').keyup(function() {
+              $.ajax({
+                 type:'GET',
+                 url:'/getStudentID',
+                 data:{class:$('#class').val(), section:$('#section').val(), roll:$('#roll').val()},
+                 success:function(students){
+                    var row="";
+                    for(var i=0; i<students.length; i++) {
+                      row += "<tr>";
+                      row += "<td>"+students[i].id+"</td>";
+                      row += "<td>"+students[i].name_english+"</td>";
+                      row += "<td>"+students[i].class+"</td>";
+                      row += "<td>"+students[i].section+"</td>";
+                      row += "<td>"+students[i].roll+"</td>";
+                      row +="</tr>";
+                    }
+                    document.getElementById('students').innerHTML=row;
+                 }
+              });
+          });
+          $('#section').change(function() {
+              $.ajax({
+                 type:'GET',
+                 url:'/getStudentID',
+                 data:{class:$('#class').val(), section:$('#section').val(), roll:$('#roll').val()},
+                 success:function(students){
+                    var row="";
+                    for(var i=0; i<students.length; i++) {
+                      row += "<tr>";
+                      row += "<td>"+students[i].id+"</td>";
+                      row += "<td>"+students[i].name_english+"</td>";
+                      row += "<td>"+students[i].class+"</td>";
+                      row += "<td>"+students[i].section+"</td>";
+                      row += "<td>"+students[i].roll+"</td>";
+                      row +="</tr>";
+                    }
+                    document.getElementById('students').innerHTML=row;
+                 }
+              });
           });
             
         });

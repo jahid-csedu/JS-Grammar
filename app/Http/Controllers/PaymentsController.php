@@ -7,6 +7,7 @@ use JSGrammar\Student;
 use JSGrammar\Transaction;
 use JSGrammar\Exam;
 use JSGrammar\StudentPayment;
+use JSGrammar\Classes;
 use Illuminate\Http\Request;
 
 class PaymentsController extends Controller
@@ -32,7 +33,9 @@ class PaymentsController extends Controller
     {
         //
         $exams = Exam::all();
-        return view('payments.create', ['exams'=>$exams]);
+        $classes = Classes::all();
+        $students = Student::all();
+        return view('payments.create', ['exams'=>$exams, 'classes'=>$classes, 'students'=>$students]);
     }
 
     /**
@@ -73,7 +76,7 @@ class PaymentsController extends Controller
                 $studentPayment->student_id = $studentId;
                 $studentPayment->type = "Admission Fee";
                 $studentPayment->trx_id = $trxId;
-                $studentPayment->year = date('y');
+                $studentPayment->year = date('Y');
                 $studentPayment->save();
             }
             if($months) {
@@ -84,7 +87,7 @@ class PaymentsController extends Controller
                     $studentPayment->type = "Monthly Fee";
                     $studentPayment->trx_id = $trxId;
                     $studentPayment->month = $month;
-                    $studentPayment->year = date('y');
+                    $studentPayment->year = date('Y');
                     $studentPayment->save();
                 }
             }
@@ -96,7 +99,7 @@ class PaymentsController extends Controller
                     $studentPayment->type = "Exam Fee";
                     $studentPayment->trx_id = $trxId;
                     $studentPayment->exam_name = $exam;
-                    $studentPayment->year = date('y');
+                    $studentPayment->year = date('Y');
                     $studentPayment->save();
                 }
             }
@@ -204,7 +207,7 @@ class PaymentsController extends Controller
 
     public function getPayments(Request $request) {
         $studentId = $request->student_id;
-        $payments = StudentPayment::where('student_id', $studentId)->get();
+        $payments = StudentPayment::where(['student_id'=> $studentId, 'year'=>date('Y')])->get();
         return $payments;
     }
 }
